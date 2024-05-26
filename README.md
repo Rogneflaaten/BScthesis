@@ -5,3 +5,6 @@ Denne repositorien inneholder skript og data som brukes til å generere reprodus
 ## Repository struktur
 
 Skript er lagret i `./docs` mappen. `./data` inneholder rådata med prossesert data lagret `./data/derivedData`. Figurer er lagret i `./pictures` mappen og tabller er lagret i `./tables` mappen. 
+
+Selve bachelor oppgaven er lagret som filen "Bachelor_2022.pdf"
+
