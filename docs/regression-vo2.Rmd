@@ -1,0 +1,424 @@
+---
+title: "regression-vo2"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+Contents regression models
+  Training intensity (mean % of VO2max at HIT-sessions) and % change (T1 to T4) in 
+    1. VO2max
+    2. Wmax
+    3. Mean power output 15min time trial
+    4. Power output at 4 mmol/L La-
+    5. Mean power output 40min time trial
+
+
+```{r}
+
+# 1. VO2max 
+
+## Loading needed packages
+library(tidyverse)
+library(readxl)
+
+# Calculate change in VO2max
+change_data  <- read_excel("data/testday1.xlsx", na = "na") %>% 
+  dplyr::select(id, timepoint, vo2.max) %>% 
+  filter(timepoint == "T1" | timepoint == "T4") %>% 
+  pivot_wider(names_from = timepoint,
+              values_from = vo2.max) %>% 
+  mutate("change" = ((T4 - T1)/T1) * 100) %>% 
+  select(id, change, T1, T4) %>%  
+  group_by(id) %>% print()
+
+# Use this to calculate mean change for all participants
+ # summarise(change.m = mean(change),
+       #     change.s = sd(change)) %>% print()
+  
+
+### Combine test data with sessions data to make a plot
+
+# Calculate VO2max per subject and test period
+# Change T1 to period 1 to match session data
+test_data  <- read_excel("data/testday1.xlsx", na = "na") %>%
+  dplyr::select(id, timepoint, vo2.max) %>%
+  mutate(period = gsub("T", "", timepoint)) %>%
+  filter(timepoint != "T4") %>%
+  dplyr::select(-timepoint) %>%
+  mutate(period = as.numeric(period)) %>%
+  print()
+
+# Saving the file were all the individual session data files is combined (VO2)
+session_data <- readRDS("data/derivedData/session-data.RDS")
+
+
+# Saving session data
+session_id <- read_excel("data/sessions-data.xlsx", na = "na") %>%
+  dplyr::select(id, period) %>%
+  group_by(id, period) %>%
+  summarise(period = mean(period)) %>%
+  print()
+
+# Combine all the data sets above and make a plot showing VO2 per interval design
+lm_data <- session_data %>%
+  dplyr::select(id:vo2) %>%
+  inner_join(test_data) %>%
+  inner_join(session_id) %>%
+  inner_join(change_data) %>% 
+  filter(id != "6") %>% 
+  filter(id != "30") %>% 
+  filter(id != "37") %>%
+  
+  mutate(rel.vo2 = 100 * (vo2 / vo2.max)) %>% 
+  
+  group_by(id) %>%
+  summarise(rel.vo2 = mean(rel.vo2, na.rm = TRUE),
+            change.vo2.max = mean(change, na.rm = TRUE),
+            t1.vo2.max = mean(T1)) %>% print()
+
+
+linear.model <- lm(change.vo2.max ~ rel.vo2 + t1.vo2.max, data = lm_data)
+summary(linear.model)
+
+reg.model <- lm_data %>%
+  ggplot(aes(rel.vo2, change.vo2.max)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_y_continuous(breaks=seq(0,20, 2)) +
+  scale_x_continuous(breaks=seq(0,100, 5)) +
+  labs(x = "% VO2max HIT-sessions (%)", y = "Change VO2max T1 to T4 (%)") + 
+  theme_minimal() %>% print()       # Hvordan gjøre denne figuren penere?
+
+reg.model
+
+```
+
+
+
+```{r}
+
+# 2. Wmax
+
+## Loading needed packages
+library(tidyverse)
+library(readxl)
+
+# Calculate change in VO2max
+change_data  <- read_excel("data/testday1.xlsx", na = "na") %>% 
+  dplyr::select(id, timepoint, w.max) %>% 
+  filter(timepoint == "T1" | timepoint == "T4") %>% 
+  pivot_wider(names_from = timepoint,
+              values_from = w.max) %>% 
+  mutate("change" = ((T4 - T1)/T1) * 100) %>% 
+  select(id, change, T1, T4) %>%  
+  group_by(id) %>% print()
+
+# Use this to calculate mean change for all participants toghether
+ # summarise(change.m = mean(change),
+        #    change.s = sd(change)) %>% print()
+  
+
+### Combine test data with sessions data to make a plot
+
+# Calculate VO2max per subject and test period
+# Change T1 to period 1 to match session data
+test_data  <- read_excel("data/testday1.xlsx", na = "na") %>%
+  dplyr::select(id, timepoint, vo2.max) %>%
+  mutate(period = gsub("T", "", timepoint)) %>%
+  filter(timepoint != "T4") %>%
+  dplyr::select(-timepoint) %>%
+  mutate(period = as.numeric(period)) %>%
+  print()
+
+# Saving the file were all the individual session data files is combined (VO2)
+session_data <- readRDS("data/derivedData/session-data.RDS")
+
+
+# Saving session data
+session_id <- read_excel("data/sessions-data.xlsx", na = "na") %>%
+  dplyr::select(id, period) %>%
+  group_by(id, period) %>%
+  summarise(period = mean(period)) %>%
+  print()
+
+# Combine all the data sets above and make a plot showing VO2 per interval design
+lm_data <- session_data %>%
+  dplyr::select(id:vo2) %>%
+  inner_join(test_data) %>%
+  inner_join(session_id) %>%
+  inner_join(change_data) %>% 
+  filter(id != "6") %>% 
+  filter(id != "30") %>% 
+  filter(id != "37") %>%
+  
+  mutate(rel.vo2 = 100 * (vo2 / vo2.max)) %>% 
+  
+  group_by(id) %>%
+  summarise(rel.vo2 = mean(rel.vo2, na.rm = TRUE),
+            change.w.max = mean(change, na.rm = TRUE),
+            t1.w.max = mean(T1)) %>% print()
+
+
+linear.model <- lm(change.w.max ~ rel.vo2 + t1.w.max, data = lm_data)
+summary(linear.model)
+
+reg.model <- lm_data %>%
+  ggplot(aes(rel.vo2, change.w.max)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_y_continuous(breaks=seq(0,20, 2)) +
+  scale_x_continuous(breaks=seq(0,100, 5)) +
+  labs(x = "% VO2max HIT-sessions (%)", y = "Change Wmax T1 to T4 (%)") + 
+  theme_minimal() %>% print()       # Hvordan gjøre denne figuren penere?
+
+reg.model
+
+```
+
+
+
+```{r}
+
+# 3. Mean power 15min time trial
+
+## Loading needed packages
+library(tidyverse)
+library(readxl)
+
+# Calculate change in VO2max
+change_data  <- read_excel("data/testday1.xlsx", na = "na") %>% 
+  dplyr::select(id, timepoint, w.15tt) %>% 
+  filter(timepoint == "T1" | timepoint == "T4") %>% 
+  pivot_wider(names_from = timepoint,
+              values_from = w.15tt) %>% 
+  mutate("change" = ((T4 - T1)/T1) * 100) %>% 
+  select(id, change, T1, T4) %>%  
+  group_by(id) %>% print()
+
+# Use this to calculate mean change for all participants toghether
+ # summarise(change.m = mean(change),
+        #    change.s = sd(change)) %>% print()
+  
+
+### Combine test data with sessions data to make a plot
+
+# Calculate VO2max per subject and test period
+# Change T1 to period 1 to match session data
+test_data  <- read_excel("data/testday1.xlsx", na = "na") %>%
+  dplyr::select(id, timepoint, vo2.max) %>%
+  mutate(period = gsub("T", "", timepoint)) %>%
+  filter(timepoint != "T4") %>%
+  dplyr::select(-timepoint) %>%
+  mutate(period = as.numeric(period)) %>%
+  print()
+
+# Saving the file were all the individual session data files is combined (VO2)
+session_data <- readRDS("data/derivedData/session-data.RDS")
+
+
+# Saving session data
+session_id <- read_excel("data/sessions-data.xlsx", na = "na") %>%
+  dplyr::select(id, period) %>%
+  group_by(id, period) %>%
+  summarise(period = mean(period)) %>%
+  print()
+
+# Combine all the data sets above and make a plot showing VO2 per interval design
+lm_data <- session_data %>%
+  dplyr::select(id:vo2) %>%
+  inner_join(test_data) %>%
+  inner_join(session_id) %>%
+  inner_join(change_data) %>% 
+  filter(id != "6") %>% 
+  filter(id != "30") %>% 
+  filter(id != "37") %>%
+  
+  mutate(rel.vo2 = 100 * (vo2 / vo2.max)) %>% 
+  
+  group_by(id) %>%
+  summarise(rel.vo2 = mean(rel.vo2, na.rm = TRUE),
+            change.w.15tt = mean(change, na.rm = TRUE),
+            t1.w.15tt = mean(T1)) %>% print()
+
+
+linear.model <- lm(change.w.15tt ~ rel.vo2 + t1.w.15tt, data = lm_data)
+summary(linear.model)
+
+reg.model <- lm_data %>%
+  ggplot(aes(rel.vo2, change.w.15tt)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_y_continuous(breaks=seq(0,20, 2)) +
+  scale_x_continuous(breaks=seq(0,100, 5)) +
+  labs(x = "% VO2max HIT-sessions (%)", y = "Change mean power 15 min TT T1 to T4 (%)") + 
+  theme_minimal() %>% print()       # Hvordan gjøre denne figuren penere?
+
+reg.model
+
+```
+
+
+```{r}
+
+# 4. Power at 4mmol/L La-
+
+## Loading needed packages
+library(tidyverse)
+library(readxl)
+
+# Calculate change in VO2max
+change_data  <- read_excel("data/testday1.xlsx", na = "na") %>% 
+  dplyr::select(id, timepoint, w.4mmol) %>% 
+  filter(timepoint == "T1" | timepoint == "T4") %>% 
+  pivot_wider(names_from = timepoint,
+              values_from = w.4mmol) %>% 
+  mutate("change" = ((T4 - T1)/T1) * 100) %>% 
+  select(id, change, T1, T4) %>%  
+  group_by(id) %>% print()
+
+# Use this to calculate mean change for all participants toghether
+ # summarise(change.m = mean(change),
+        #    change.s = sd(change)) %>% print()
+  
+
+### Combine test data with sessions data to make a plot
+
+# Calculate VO2max per subject and test period
+# Change T1 to period 1 to match session data
+test_data  <- read_excel("data/testday1.xlsx", na = "na") %>%
+  dplyr::select(id, timepoint, vo2.max) %>%
+  mutate(period = gsub("T", "", timepoint)) %>%
+  filter(timepoint != "T4") %>%
+  dplyr::select(-timepoint) %>%
+  mutate(period = as.numeric(period)) %>%
+  print()
+
+# Saving the file were all the individual session data files is combined (VO2)
+session_data <- readRDS("data/derivedData/session-data.RDS")
+
+
+# Saving session data
+session_id <- read_excel("data/sessions-data.xlsx", na = "na") %>%
+  dplyr::select(id, period) %>%
+  group_by(id, period) %>%
+  summarise(period = mean(period)) %>%
+  print()
+
+# Combine all the data sets above and make a plot showing VO2 per interval design
+lm_data <- session_data %>%
+  dplyr::select(id:vo2) %>%
+  inner_join(test_data) %>%
+  inner_join(session_id) %>%
+  inner_join(change_data) %>% 
+  filter(id != "6") %>% 
+  filter(id != "30") %>% 
+  filter(id != "37") %>%
+  
+  mutate(rel.vo2 = 100 * (vo2 / vo2.max)) %>% 
+  
+  group_by(id) %>%
+  summarise(rel.vo2 = mean(rel.vo2, na.rm = TRUE),
+            change.w.4mmol = mean(change, na.rm = TRUE),
+            t1.w.4mmol = mean(T1)) %>% print()
+
+
+linear.model <- lm(change.w.4mmol ~ rel.vo2 + t1.w.4mmol, data = lm_data)
+summary(linear.model)
+
+reg.model <- lm_data %>%
+  ggplot(aes(rel.vo2, change.w.4mmol)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_y_continuous(breaks=seq(0,20, 2)) +
+  scale_x_continuous(breaks=seq(0,100, 5)) +
+  labs(x = "% VO2max HIT-sessions (%)", y = "Change power 4mmol/L La- T1 to T4 (%)") + 
+  theme_minimal() %>% print()       # Hvordan gjøre denne figuren penere?
+
+reg.model
+
+```
+
+
+```{r}
+
+# 5. Mean power 40 min time trial
+
+## Loading needed packages
+library(tidyverse)
+library(readxl)
+
+# Calculate change in VO2max
+change_data  <- read_excel("data/testday2.xlsx", na = "na") %>% 
+  dplyr::select(id, timepoint, w.40tt) %>% 
+  filter(timepoint == "T1" | timepoint == "T4") %>% 
+  pivot_wider(names_from = timepoint,
+              values_from = w.40tt) %>% 
+  mutate("change" = ((T4 - T1)/T1) * 100) %>% 
+  select(id, change, T1, T4) %>%  
+  group_by(id) %>% print()
+
+# Use this to calculate mean change for all participants toghether
+ # summarise(change.m = mean(change),
+        #    change.s = sd(change)) %>% print()
+  
+
+### Combine test data with sessions data to make a plot
+
+# Calculate VO2max per subject and test period
+# Change T1 to period 1 to match session data
+test_data  <- read_excel("data/testday1.xlsx", na = "na") %>%
+  dplyr::select(id, timepoint, vo2.max) %>%
+  mutate(period = gsub("T", "", timepoint)) %>%
+  filter(timepoint != "T4") %>%
+  dplyr::select(-timepoint) %>%
+  mutate(period = as.numeric(period)) %>%
+  print()
+
+# Saving the file were all the individual session data files is combined (VO2)
+session_data <- readRDS("data/derivedData/session-data.RDS")
+
+
+# Saving session data
+session_id <- read_excel("data/sessions-data.xlsx", na = "na") %>%
+  dplyr::select(id, period) %>%
+  group_by(id, period) %>%
+  summarise(period = mean(period)) %>%
+  print()
+
+# Combine all the data sets above and make a plot showing VO2 per interval design
+lm_data <- session_data %>%
+  dplyr::select(id:vo2) %>%
+  inner_join(test_data) %>%
+  inner_join(session_id) %>%
+  inner_join(change_data) %>% 
+  filter(id != "6") %>% 
+  filter(id != "30") %>% 
+  filter(id != "37") %>%
+  
+  mutate(rel.vo2 = 100 * (vo2 / vo2.max)) %>% 
+  
+  group_by(id) %>%
+  summarise(rel.vo2 = mean(rel.vo2, na.rm = TRUE),
+            change.w.40tt = mean(change, na.rm = TRUE),
+            t1.w.40tt = mean(T1)) %>% print()
+
+
+linear.model <- lm(change.w.40tt ~ rel.vo2 + t1.w.40tt, data = lm_data)
+summary(linear.model)
+
+reg.model <- lm_data %>%
+  ggplot(aes(rel.vo2, change.w.40tt)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_y_continuous(breaks=seq(-30,30, 2)) +
+  scale_x_continuous(breaks=seq(0,100, 5)) +
+  labs(x = "% VO2max HIT-sessions (%)", y = "Change man power 40 min TT T1 to T4 (%)") + 
+  theme_minimal() %>% print()       # Hvordan gjøre denne figuren penere?
+
+reg.model
+
+```
+
+
+

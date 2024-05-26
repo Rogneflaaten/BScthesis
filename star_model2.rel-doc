@@ -1,0 +1,35 @@
+
+<table style="text-align:center"><tr><td colspan="7" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"></td><td colspan="6">Avhengige variabler</td></tr>
+<tr><td></td><td colspan="6" style="border-bottom: 1px solid black"></td></tr>
+<tr><td style="text-align:left"></td><td>PI</td><td>VO2maks</td><td>Wmaks</td><td>Wlaktatterskel</td><td>W15tt</td><td>W40tt</td></tr>
+<tr><td colspan="7" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Constant</td><td>-0.32<sup>**</sup></td><td>-3.50</td><td>-2.08<sup>*</sup></td><td>-2.20<sup>**</sup></td><td>-1.37</td><td>0.65</td></tr>
+<tr><td style="text-align:left"></td><td>(-0.56, -0.09)</td><td>(-31.99, 25.00)</td><td>(-4.23, 0.08)</td><td>(-3.71, -0.68)</td><td>(-3.44, 0.71)</td><td>(-1.35, 2.65)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">rel.vo2</td><td>0.00<sup>**</sup></td><td>0.27<sup>*</sup></td><td>0.04<sup>***</sup></td><td>0.02<sup>**</sup></td><td>0.02</td><td>-0.00</td></tr>
+<tr><td style="text-align:left"></td><td>(0.00, 0.01)</td><td>(0.00, 0.55)</td><td>(0.02, 0.07)</td><td>(0.00, 0.05)</td><td>(-0.01, 0.05)</td><td>(-0.03, 0.02)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">per.index.rel_T1</td><td>-0.04</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"></td><td>(-0.22, 0.15)</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">vo2.rel.max_T1</td><td></td><td>-0.24<sup>*</sup></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td>(-0.46, -0.02)</td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">w.max.rel_T1</td><td></td><td></td><td>-0.18</td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td>(-0.40, 0.04)</td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">w.4mmol.rel_T1</td><td></td><td></td><td></td><td>0.07</td><td></td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td>(-0.13, 0.28)</td><td></td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">w.15tt.rel_T1</td><td></td><td></td><td></td><td></td><td>-0.06</td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td>(-0.32, 0.21)</td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">w.40tt.rel_T1</td><td></td><td></td><td></td><td></td><td></td><td>-0.04</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td>(-0.34, 0.25)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="7" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Observations</td><td>19</td><td>19</td><td>19</td><td>19</td><td>19</td><td>19</td></tr>
+<tr><td style="text-align:left">R<sup>2</sup></td><td>0.37</td><td>0.35</td><td>0.40</td><td>0.40</td><td>0.13</td><td>0.02</td></tr>
+<tr><td style="text-align:left">Adjusted R<sup>2</sup></td><td>0.29</td><td>0.27</td><td>0.32</td><td>0.32</td><td>0.02</td><td>-0.11</td></tr>
+<tr><td style="text-align:left">Residual Std. Error (df = 16)</td><td>0.03</td><td>2.56</td><td>0.23</td><td>0.16</td><td>0.22</td><td>0.22</td></tr>
+<tr><td style="text-align:left">F Statistic (df = 2; 16)</td><td>4.72<sup>**</sup></td><td>4.35<sup>**</sup></td><td>5.24<sup>**</sup></td><td>5.24<sup>**</sup></td><td>1.17</td><td>0.14</td></tr>
+<tr><td colspan="7" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Merknader:</td><td colspan="6" style="text-align:right"><sup>*</sup>p<0.1; <sup>**</sup>p<0.05; <sup>***</sup>p<0.01</td></tr>
+</table>

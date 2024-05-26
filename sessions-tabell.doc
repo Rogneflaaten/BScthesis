@@ -1,0 +1,8 @@
+
+<table style="text-align:center"><tr><td colspan="6" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Statistic</td><td>N</td><td>Mean</td><td>St. Dev.</td><td>Min</td><td>Max</td></tr>
+<tr><td colspan="6" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">rel.vo2</td><td>19</td><td>85.89</td><td>4.33</td><td>77.09</td><td>93.68</td></tr>
+<tr><td style="text-align:left">rel.hr</td><td>19</td><td>89.47</td><td>1.27</td><td>86.03</td><td>91.04</td></tr>
+<tr><td style="text-align:left">la</td><td>19</td><td>5.82</td><td>1.44</td><td>3.01</td><td>8.53</td></tr>
+<tr><td style="text-align:left">rpe</td><td>19</td><td>16.19</td><td>0.97</td><td>14.24</td><td>18.07</td></tr>
+<tr><td style="text-align:left">hr.total.trimp</td><td>18</td><td>7,217.56</td><td>1,510.50</td><td>4,709.00</td><td>10,679.50</td></tr>
+<tr><td colspan="6" style="border-bottom: 1px solid black"></td></tr></table>

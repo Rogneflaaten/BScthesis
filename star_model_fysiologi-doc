@@ -1,0 +1,31 @@
+
+<table style="text-align:center"><tr><td colspan="3" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"></td><td colspan="2">Avhengige variabler</td></tr>
+<tr><td></td><td colspan="2" style="border-bottom: 1px solid black"></td></tr>
+<tr><td style="text-align:left"></td><td>blodvolum</td><td>HBmasse</td></tr>
+<tr><td colspan="3" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Constant</td><td>-0.274</td><td>-2.014</td></tr>
+<tr><td style="text-align:left"></td><td>(-49.449, 48.900)</td><td>(-7.531, 3.504)</td></tr>
+<tr><td style="text-align:left"></td><td>t = -0.011</td><td>t = -0.715</td></tr>
+<tr><td style="text-align:left"></td><td>p = 0.992</td><td>p = 0.488</td></tr>
+<tr><td style="text-align:left">rel.vo2</td><td>0.245</td><td>-0.001</td></tr>
+<tr><td style="text-align:left"></td><td>(-0.254, 0.744)</td><td>(-0.059, 0.056)</td></tr>
+<tr><td style="text-align:left"></td><td>t = 0.962</td><td>t = -0.051</td></tr>
+<tr><td style="text-align:left"></td><td>p = 0.354</td><td>p = 0.961</td></tr>
+<tr><td style="text-align:left">bv.rel_T1</td><td>-0.235</td><td></td></tr>
+<tr><td style="text-align:left"></td><td>(-0.500, 0.030)</td><td></td></tr>
+<tr><td style="text-align:left"></td><td>t = -1.739</td><td></td></tr>
+<tr><td style="text-align:left"></td><td>p = 0.106</td><td></td></tr>
+<tr><td style="text-align:left">`hbmass/kg_T1`</td><td></td><td>0.164</td></tr>
+<tr><td style="text-align:left"></td><td></td><td>(-0.065, 0.392)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td>t = 1.406</td></tr>
+<tr><td style="text-align:left"></td><td></td><td>p = 0.184</td></tr>
+<tr><td style="text-align:left">change_bodymass</td><td>-0.993</td><td>-0.078</td></tr>
+<tr><td style="text-align:left"></td><td>(-2.273, 0.287)</td><td>(-0.226, 0.069)</td></tr>
+<tr><td style="text-align:left"></td><td>t = -1.521</td><td>t = -1.038</td></tr>
+<tr><td style="text-align:left"></td><td>p = 0.153</td><td>p = 0.319</td></tr>
+<tr><td colspan="3" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Observations</td><td>17</td><td>17</td></tr>
+<tr><td style="text-align:left">R<sup>2</sup></td><td>0.385</td><td>0.234</td></tr>
+<tr><td style="text-align:left">Adjusted R<sup>2</sup></td><td>0.243</td><td>0.057</td></tr>
+<tr><td style="text-align:left">Residual Std. Error (df = 13)</td><td>3.561</td><td>0.408</td></tr>
+<tr><td style="text-align:left">F Statistic (df = 3; 13)</td><td>2.714<sup>*</sup> (p = 0.088)</td><td>1.323 (p = 0.310)</td></tr>
+<tr><td colspan="3" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Merknader:</td><td colspan="2" style="text-align:right"><sup>*</sup>p<0.1; <sup>**</sup>p<0.05; <sup>***</sup>p<0.01</td></tr>
+</table>

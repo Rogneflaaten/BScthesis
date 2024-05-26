@@ -1,0 +1,194 @@
+---
+title: "average-vo2-bout"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+Contents
+1. A plot showing each participant´s average VO2 during a bout, grouped by period
+2. A plot showing each participant´s average VO2 during a bout during the whole intervention
+
+```{r}
+
+## 1. Making a plot showing each participant´s average VO2 during a bout, grouped by period
+
+## Loading needed packages
+library(tidyverse)
+library(readxl)
+
+### Combine test data with sessions data to make a plot
+
+# Calculate VO2max per subject and test period
+# Change T1 to period 1 to match session data
+test_data  <- read_excel("data/testday1.xlsx", na = "na") %>%
+  dplyr::select(id, timepoint, vo2.max) %>%
+  mutate(period = gsub("T", "", timepoint)) %>%
+  filter(timepoint != "T4") %>%
+  dplyr::select(-timepoint) %>%
+  mutate(period = as.numeric(period)) %>%
+  print()
+
+# Saving the file were all the individual session data files is combined (VO2)
+session_data <- readRDS("data/derivedData/session-data.RDS")
+
+
+# Saving session data
+session_id <- read_excel("data/sessions-data.xlsx", na = "na") %>%
+  dplyr::select(id, period) %>%
+  group_by(id, period) %>%
+  summarise(period = mean(period)) %>%
+  print()
+
+
+
+# Combine all the data sets above and make a plot showing VO2 per interval design
+session_data %>%
+  dplyr::select(id:vo2) %>%
+  inner_join(test_data) %>%
+  inner_join(session_id) %>%
+  filter(id != "6") %>% 
+  filter(id != "30")%>% 
+  
+  mutate(rel.vo2 = 100 * (vo2 / vo2.max)) %>%
+  
+  group_by(time, id, period) %>%
+  summarise(rel.vo2 = mean(rel.vo2, na.rm = TRUE)) %>%
+
+  ggplot(aes(time, rel.vo2, color = period, group = paste(id, period))) + 
+  geom_smooth(aes(group = NULL)) +
+  geom_line(alpha = 0.2) +
+  scale_y_continuous(breaks=seq(30,100,10)) +
+  labs(x = "Time (min)", y = "VO2 (ml/kg/min)") %>% 
+  print()
+
+
+```
+
+
+
+```{r}
+
+## 2. Making a plot showing each participant´s average VO2 during a bout (9 weeks)
+
+## Loading needed packages
+library(tidyverse)
+library(readxl)
+
+### Combine test data with sessions data to make a plot
+
+# Calculate VO2max per subject and test period
+# Change T1 to period 1 to match session data
+test_data  <- read_excel("data/testday1.xlsx", na = "na") %>%
+  dplyr::select(id, timepoint, vo2.max) %>%
+  mutate(period = gsub("T", "", timepoint)) %>%
+  filter(timepoint != "T4") %>%
+  dplyr::select(-timepoint) %>%
+  mutate(period = as.numeric(period)) %>%
+  print()
+
+# Saving the file were all the individual session data files is combined (VO2)
+session_data <- readRDS("data/derivedData/session-data.RDS")
+
+
+# Saving session data
+session_id <- read_excel("data/sessions-data.xlsx", na = "na") %>%
+  dplyr::select(id, period) %>%
+  group_by(id, period) %>%
+  summarise(period = mean(period)) %>%
+  print()
+
+
+
+# Combine all the data sets above and make a plot showing VO2 per interval design
+session_data %>%
+  dplyr::select(id:vo2) %>%
+  inner_join(test_data) %>%
+  inner_join(session_id) %>%
+  filter(id != "6") %>% 
+  filter(id != "30")%>% 
+  
+  mutate(rel.vo2 = 100 * (vo2 / vo2.max)) %>% 
+  
+  group_by(time, id) %>% 
+  summarise(rel.vo2 = mean(rel.vo2, na.rm = TRUE)) %>% 
+
+  ggplot(aes(time, rel.vo2, color = id, group = id)) %>% +
+
+  geom_line(alpha = 0.5, size = 0.5) +
+  scale_y_continuous(breaks=seq(30,110,10)) +
+  labs(x = "Time (min)", y = "% of VO2max") +
+  theme_grey()
+
+
+# Hvordan får jeg ikke kontinuerlig fargeboks for id?
+# Hvordan får jeg 00:00 til 08:00 på x-aksen?
+
+
+mean_vo2 <- session_data %>%
+  dplyr::select(id:vo2) %>%
+  inner_join(test_data) %>%
+  inner_join(session_id) %>%
+  filter(id != "6") %>% 
+  
+  mutate(rel.vo2 = 100 * (vo2 / vo2.max)) %>% 
+
+  group_by(id, period) %>% 
+  summarise(m = mean(rel.vo2, na.rm = TRUE), 
+            s = sd(rel.vo2, na.rm = TRUE), 
+            q5 = quantile(rel.vo2,0.05, na.rm = TRUE), 
+            q95 = quantile(rel.vo2,0.95, na.rm = TRUE)) %>%
+  mutate(period = paste0("p", period)) %>%
+  print()
+
+
+#########################################################################
+
+
+# Starting making a model
+
+period_test <- read_excel("data/testday1.xlsx", na = "na") %>%
+  dplyr::select(id, timepoint, vo2.max) %>%
+
+  mutate(period = as.numeric(gsub("T", "", timepoint))) %>%
+
+  dplyr::select(id, timepoint, vo2.max) %>%
+  pivot_wider(values_from = vo2.max, names_from = timepoint) %>%
+  
+  mutate(p1_baseline = T1, 
+         p2_baseline = T2, 
+         p3_baseline = T3, 
+         p1_post = T2, 
+         p2_post = T3, 
+         p3_post = T4) %>%
+  dplyr::select(id, p1_baseline:p3_post) %>%
+  pivot_longer(names_to = "period_test", 
+               values_to = "vo2max", 
+               cols = p1_baseline:p3_post) %>%
+  separate(period_test, into = c("period", "test")) %>%
+  pivot_wider(names_from = test, values_from = vo2max) %>%
+  inner_join(mean_vo2) %>%
+  print()
+  
+
+library(nlme)
+
+
+m <- lme(post ~ baseline + m, 
+         random = list(id = ~ 1), 
+         data = period_test) 
+
+
+summary(m)
+
+
+period_test %>%
+  ggplot(aes(baseline, post, color = m)) + geom_point()  + geom_abline(slope = 1, intercept = 0)
+
+
+
+
+```
+
+
+

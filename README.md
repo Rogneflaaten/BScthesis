@@ -1,2 +1,1 @@
-# BScthesis
-Bachelor thesis
+# tic-study-BA-MA

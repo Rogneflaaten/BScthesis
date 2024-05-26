@@ -1,0 +1,38 @@
+---
+title: "Analysis for the last six minutes of every bout"
+author: "Torkil Rogneflåten"
+date: "24 2 2022"
+output: html_document
+params:
+  printcode:
+    label: "Display Code:"
+    value: TRUE
+---
+
+```{r setup, warning=FALSE, message=FALSE, include=FALSE}
+# setting the working directory. In order to use my script you need to change the working directory to where you have stored the repository folder "tic-study-BA-MA".
+
+
+# loading requiered packages
+library(tidyverse)
+library(readxl)
+
+# importing session-data, test-data and id-data
+session_data <- readRDS("data/derivedData/session-data-6min.RDS")
+test_data  <- read_excel("data/testday1.xlsx", na = "na")
+session_id <- read_excel("data/sessions-data.xlsx", na = "na")
+```
+
+### hva vi skal gjøre 
+
+* bruke relational data til å samle datasettene
+* vi skal lage en model som predikerer performance index endring ut ifra gj.snitt vo2 i prosent av vo2maks under treningsintervensjonen + finne andre variabler å ta hensyn til ved å studere residuals
+* Lage en "nested" dataframe hvor hver rad er en av variablene vi skal se på (vo2maks, wmaks, 15tt watt, performance index) 
+* data transformation
+* R markdown
+* 
+
+```{r}
+
+```
+

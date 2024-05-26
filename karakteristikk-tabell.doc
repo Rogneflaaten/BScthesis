@@ -1,0 +1,21 @@
+
+<table style="text-align:center"><tr><td colspan="6" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Statistic</td><td>N</td><td>Mean</td><td>St. Dev.</td><td>Min</td><td>Max</td></tr>
+<tr><td colspan="6" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">id</td><td>19</td><td>18.6</td><td>9.3</td><td>2</td><td>34</td></tr>
+<tr><td style="text-align:left">age</td><td>19</td><td>21.9</td><td>6.1</td><td>17</td><td>37</td></tr>
+<tr><td style="text-align:left">bodyheight</td><td>19</td><td>181.9</td><td>6.0</td><td>173</td><td>193</td></tr>
+<tr><td style="text-align:left">bodymass</td><td>19</td><td>73.9</td><td>7.9</td><td>61.6</td><td>84.5</td></tr>
+<tr><td style="text-align:left">total.training</td><td>19</td><td>4,700.6</td><td>1,502.5</td><td>2,702.0</td><td>7,741.5</td></tr>
+<tr><td style="text-align:left">total.t.endurance</td><td>19</td><td>4,481.8</td><td>1,484.1</td><td>1,975.0</td><td>7,741.5</td></tr>
+<tr><td style="text-align:left">total.t.strength</td><td>19</td><td>218.8</td><td>281.5</td><td>0</td><td>955</td></tr>
+<tr><td style="text-align:left">total.n.endurance</td><td>19</td><td>54.3</td><td>14.1</td><td>29</td><td>95</td></tr>
+<tr><td style="text-align:left">p.t.bike</td><td>19</td><td>84.7</td><td>8.3</td><td>53.3</td><td>93.4</td></tr>
+<tr><td style="text-align:left">p.t.run</td><td>19</td><td>7.1</td><td>3.6</td><td>0.0</td><td>16.1</td></tr>
+<tr><td style="text-align:left">p.t.ski</td><td>19</td><td>0.1</td><td>0.4</td><td>0.0</td><td>1.8</td></tr>
+<tr><td style="text-align:left">total.n.strengt</td><td>19</td><td>3.7</td><td>4.8</td><td>0</td><td>16</td></tr>
+<tr><td style="text-align:left">p.t.m.strength</td><td>19</td><td>15.6</td><td>33.0</td><td>0.0</td><td>100.0</td></tr>
+<tr><td style="text-align:left">p.t.g.strength</td><td>19</td><td>47.6</td><td>48.3</td><td>0.0</td><td>100.0</td></tr>
+<tr><td style="text-align:left">active.years</td><td>18</td><td>3.8</td><td>3.0</td><td>0.0</td><td>11.0</td></tr>
+<tr><td style="text-align:left">national.races.21</td><td>18</td><td>6.6</td><td>6.2</td><td>0</td><td>17</td></tr>
+<tr><td style="text-align:left">international.races.21</td><td>18</td><td>3.6</td><td>6.8</td><td>0</td><td>26</td></tr>
+<tr><td style="text-align:left">year.total</td><td>18</td><td>29,313.0</td><td>9,128.4</td><td>15,600</td><td>45,240</td></tr>
+<tr><td colspan="6" style="border-bottom: 1px solid black"></td></tr></table>
