@@ -1,0 +1,2 @@
+# BScthesis
+Bachelor thesis
